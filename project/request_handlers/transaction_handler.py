@@ -1,5 +1,5 @@
 from tornado import web
 
 class TransactionHandler(web.RequestHandler):
-    def get(self):
+    def post(self):
         self.write("Hello, world")
