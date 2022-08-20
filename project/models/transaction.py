@@ -8,3 +8,6 @@ class Transaction:
         self.account_id = account_id
         self.transaction_type = transaction_type
         self.amount = amount
+
+    def get_account_id(self):
+        return self.account_id

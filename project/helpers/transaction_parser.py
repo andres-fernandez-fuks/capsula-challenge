@@ -19,7 +19,10 @@ class TransactionParser:
                 transaction_data["transaction_type"]
             )
             amount = transaction_data["amount"]
-            return Transaction(transaction_type, amount)
+            account_id = transaction_data["account_id"]
+            return Transaction(
+                transaction_type=transaction_type, amount=amount, account_id=account_id
+            )
         except ValueError as e:
             raise InvalidInputException("saldo")
 
