@@ -16,16 +16,16 @@ def step_impl(context, account_id):
 
 
 @when(
-    "an income transaction is created to my account with a value of {transaction_amount:d}"
+    "an {transaction_type} transaction is created to my account with a value of {transaction_amount:d}"
 )
-def step_impl(context, transaction_amount):
+def step_impl(context, transaction_type, transaction_amount):
     request_data = {
-        "transaction_type": "income",
+        "transaction_type": transaction_type,
         "amount": transaction_amount,
         "account_id": context.account_id,
     }
     request = requests.post(POST_URL, json=request_data)
-    assert request.status_code == 200
+    context.request_status = request.status_code
 
 
 @then("the balance of my account should be {expected_balance:d}")
@@ -34,3 +34,18 @@ def step_impl(context, expected_balance):
     balance = request.json()["balance"]
     assert balance == expected_balance
 
+
+@given("my account with id {account_id:d} has a balance of {balance:d}")
+def step_impl(context, account_id, balance):
+    context.account_id = account_id
+    request_data = {
+    "transaction_type": "income",
+    "amount": balance,
+    "account_id": account_id,
+    }
+    request = requests.post(POST_URL, json=request_data)
+
+
+@then("an error should be raised")
+def step_impl(context):
+    assert context.request_status != 200

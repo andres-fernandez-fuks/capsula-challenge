@@ -14,7 +14,7 @@ def handle_transaction():
         account.handle_transaction(transaction)
         return jsonify({"balance": account.get_balance()})
     except Exception as e:
-        return jsonify({"error": str(e)})
+        return 400, jsonify({"error": str(e)})
 
       
 
