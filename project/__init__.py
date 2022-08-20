@@ -7,7 +7,7 @@ PORT = 8080
 
 async def app():
     application = web.Application([
-        (r"/account/balance", AccountHandler),
+        (r"/account/(.*)/balance", AccountHandler),
         (r"/transaction", TransactionHandler),
     ])
     application.listen(PORT)
