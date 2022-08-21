@@ -4,6 +4,9 @@ from project.models.transaction import Transaction, TransactionType
 
 
 class Account:
+    """
+    Representa una cuenta, con un identificador y un saldo. Maneja transacciones de ingreso y egreso.
+    """
     def __init__(self, id, starting_balance=0):
         self.id = id
         self.balance = starting_balance
