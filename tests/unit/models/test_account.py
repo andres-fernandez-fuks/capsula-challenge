@@ -1,5 +1,5 @@
-from project.exceptions.insufficient_funds_exception import InsufficientFundsException
 import pytest
+from project.exceptions.insufficient_funds_exception import InsufficientFundsException
 from project.models.account import Account
 from project.models.transaction import Transaction, TransactionType
 

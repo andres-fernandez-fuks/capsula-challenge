@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from project.helpers.transaction_parser import TransactionParser
 from project.repositories.account_repository import AccountRepository
+from project.helpers.exception_handler import ExceptionHandler
 
 TRANSACTIONS_ENDPOINT = "/transactions"
 transaction_controller = Blueprint("transaction_controller", __name__)
@@ -14,7 +15,7 @@ def handle_transaction():
         account.handle_transaction(transaction)
         return jsonify({"balance": account.get_balance()})
     except Exception as e:
-        return 400, jsonify({"error": str(e)})
+        return ExceptionHandler.handle_exception(e)
 
       
 

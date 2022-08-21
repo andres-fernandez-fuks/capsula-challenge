@@ -16,3 +16,6 @@ class Database:
             )  # debería lanzar error, pero es más fácil en este ejercicio que no lo haga
         return self.accounts[id]
 
+    def reset(self):
+        self.accounts = {}
+

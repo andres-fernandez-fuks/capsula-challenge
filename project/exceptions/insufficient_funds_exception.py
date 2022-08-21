@@ -1,3 +1,3 @@
 class InsufficientFundsException(Exception):
-    def __init__(self):
-        self.message = "Saldo insuficiente para realizar la transacción"
+    def __str__(self):
+        return "Saldo insuficiente para realizar la transacción"
