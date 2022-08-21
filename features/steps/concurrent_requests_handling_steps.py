@@ -5,7 +5,7 @@ from behave import given, when, then, step
 import requests
 
 ACCOUNT_ID = 1
-POST_URL = "http://localhost:8080/transactions"
+POST_TRANSACTION_URL = "http://localhost:8080/transactions"
 
 def create_transactions(transaction_amounts):
     for amount in transaction_amounts:
@@ -14,7 +14,7 @@ def create_transactions(transaction_amounts):
             "amount": amount,
             "account_id": ACCOUNT_ID,
         }
-        request = requests.post(POST_URL, json=request_data)
+        request = requests.post(POST_TRANSACTION_URL, json=request_data)
 
 def get_account_status(stop, balances_seen):
     while True:

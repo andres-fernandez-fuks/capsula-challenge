@@ -1,6 +1,7 @@
 from project import create_app
+from decouple import config
 
-PORT = 8080 # mover a .env
+PORT = config("PORT", default=8080, cast=int)
 
 if __name__ == "__main__":
     app = create_app()

@@ -11,7 +11,7 @@ class ExceptionHandler:
     BUSINESS_LOGIC_EXCEPTIONS = [InsufficientFundsException]
 
     @classmethod
-    def exception_belongs_to(exception, exception_lists):
+    def exception_belongs_to(cls, exception, exception_lists):
         """
         Devuelve True si la excepción pertenece a la lista de excepciones.
         """

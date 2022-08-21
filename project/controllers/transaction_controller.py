@@ -5,6 +5,10 @@ from project.helpers.exception_handler import ExceptionHandler
 
 TRANSACTIONS_ENDPOINT = "/transactions"
 transaction_controller = Blueprint("transaction_controller", __name__)
+"""
+Controlador encargado de manejar todas las requests asociadas a las transacciones (Transactions).
+"""
+
 
 @transaction_controller.route(f"{TRANSACTIONS_ENDPOINT}", methods=["POST"])
 def handle_transaction():
@@ -16,6 +20,4 @@ def handle_transaction():
         return jsonify({"balance": account.get_balance()})
     except Exception as e:
         return ExceptionHandler.handle_exception(e)
-
-      
 

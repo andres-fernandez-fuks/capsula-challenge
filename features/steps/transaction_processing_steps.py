@@ -1,18 +1,12 @@
 from behave import given, when, then, step
 from project.models.account import Account
 import requests
+from http import HTTPStatus
 
 
-POST_URL = "http://localhost:8080/transactions"
-
-
-def get_balance_url(account_id):
-    return f"http://localhost:8080/accounts/{account_id}/balance"
-
-
-@given("I have a new account with id {account_id:d}")
-def step_impl(context, account_id):
-    context.account_id = account_id
+ACCOUNT_ID = 1
+POST_TRANSACTION_URL = "http://localhost:8080/transactions"
+GET_BALANCE_URL = f"http://localhost:8080/accounts/{ACCOUNT_ID}/balance"
 
 
 @when(
@@ -22,30 +16,29 @@ def step_impl(context, transaction_type, transaction_amount):
     request_data = {
         "transaction_type": transaction_type,
         "amount": transaction_amount,
-        "account_id": context.account_id,
+        "account_id": ACCOUNT_ID,
     }
-    request = requests.post(POST_URL, json=request_data)
+    request = requests.post(POST_TRANSACTION_URL, json=request_data)
     context.request_status = request.status_code
 
 
 @then("the balance of my account should be {expected_balance:d}")
 def step_impl(context, expected_balance):
-    request = requests.get(get_balance_url(context.account_id))
+    request = requests.get(GET_BALANCE_URL)
     balance = request.json()["balance"]
     assert balance == expected_balance
 
 
-@given("my account with id {account_id:d} has a balance of {balance:d}")
-def step_impl(context, account_id, balance):
-    context.account_id = account_id
+@given("my account has a balance of {balance:d}")
+def step_impl(context, balance):
     request_data = {
     "transaction_type": "income",
     "amount": balance,
-    "account_id": account_id,
+    "account_id": ACCOUNT_ID,
     }
-    request = requests.post(POST_URL, json=request_data)
+    request = requests.post(POST_TRANSACTION_URL, json=request_data)
 
 
 @then("an error should be raised")
 def step_impl(context):
-    assert context.request_status != 200
+    assert context.request_status == HTTPStatus.UNPROCESSABLE_ENTITY
